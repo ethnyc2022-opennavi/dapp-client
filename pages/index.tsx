@@ -13,7 +13,7 @@ function Home() {
   return (
     <div>
       <Head>
-        <title>next-web3-boilerplate</title>
+        <title>Open Navi</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -30,7 +30,7 @@ function Home() {
         <h1>
           Welcome to{" "}
           <a href="https://github.com/mirshko/next-web3-boilerplate">
-            next-web3-boilerplate
+            Open Navi
           </a>
         </h1>
 
@@ -39,6 +39,10 @@ function Home() {
 
           </section>
         )}
+
+        {
+          <FileUpload></FileUpload>
+        }
       </main>
 
       <style jsx>{`
