@@ -1,19 +1,13 @@
 import { useWeb3React } from "@web3-react/core";
 import Head from "next/head";
 import Link from "next/link";
-import Account from "../components/Account";
-import ETHBalance from "../components/ETHBalance";
-import FileUpload from "../components/FileUpload";
-import TokenBalance from "../components/TokenBalance";
-import useEagerConnect from "../hooks/useEagerConnect";
+import Nav from "../components/Layout/Nav";
+import Image from 'next/image';
 
 const DAI_TOKEN_ADDRESS = "0x6b175474e89094c44da98b954eedeac495271d0f";
 
 function Home() {
   const { account, library } = useWeb3React();
-
-  const triedToEagerConnect = useEagerConnect();
-
   const isConnected = typeof account === "string" && !!library;
 
   return (
@@ -24,16 +18,15 @@ function Home() {
       </Head>
 
       <header>
-        <nav>
+        <nav className="flex items-center pt-5 px-7">
           <Link href="/">
-            <a></a>
+            <Image src={'/navi.png'} width="100%" height="50%" alt={'Navi'}/>
           </Link>
-
-          <Account triedToEagerConnect={triedToEagerConnect} />
+          <Nav/>
         </nav>
       </header>
 
-      <main>
+      <main className="pt-5">
         <h1>
           Welcome to{" "}
           <a href="https://github.com/mirshko/next-web3-boilerplate">
@@ -43,9 +36,7 @@ function Home() {
 
         {isConnected && (
           <section>
-            <ETHBalance />
 
-            <TokenBalance tokenAddress={DAI_TOKEN_ADDRESS} symbol="DAI" />
           </section>
         )}
 
