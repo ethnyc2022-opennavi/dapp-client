@@ -11,10 +11,12 @@ function MyNaviPreview({
   basicsOne,
   basicsTwo,
   basicsThree,
+  basicsFour,
 }) {
   let preview = mergeImages([
     `/navi-attributes/basics/${basicsOne}.png`,
     `/navi-attributes/basics/${basicsTwo}.png`,
+    `/navi-attributes/basics/${basicsFour}.png`,
     `/navi-attributes/basics/${proficiency}.png`,
     `/navi-attributes/basics/${chain}.png`,
     `/navi-attributes/basics/${handRight}.png`,
