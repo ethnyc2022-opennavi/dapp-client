@@ -1,54 +1,67 @@
 import { compose } from "@mui/system";
+import { access } from "fs";
 import Image from "next/image";
 import React, { useState } from "react";
 
 function MySkillsSelector() {
   const NaviAttributes = [
-    ["PersonaOne", "BACKGROUND", 1],
-    ["PersonaTwo", "SKIN", 1],
-    ["PersonaThree", "EYES", 1],
-    ["Language", "HAND", 1],
-    ["Chain Affiliation", "CLOTH", 1],
-    ["Group Affiliation", "CLOTH", 1],
-    ["ProficiencyLevel", "CLOTH", 1],
+    ["Basics 1", "BACKGROUND", ["bgOne", "bgTwo", "bgThree"]],
+    ["Basics 2", "SKIN", ["skinOne", "skinTwo", "skinThree"]],
+    ["Basics 3", "EYES", ["eyesOne", "eyesTwo", "eyesThree"]],
+    [
+      "Language",
+      "HANDLEFT",
+      ["handLeftJs", "handLeftPy", "handLeftRust", "handLeftSol"],
+    ],
+    [
+      "Language",
+      "HANDRIGHT",
+      ["handRightJs", "handRightPy", "handRightRust", "handRightSol"],
+    ],
+    ["Chain Affiliation", "CHAIN", ["chainOne", "chainTwo", "chainThree"]],
+    ["Group Affiliation", "HAT", ["hatOne"]],
+    ["Proficiency Level", "JACKET", ["jacketOne", "jacketTwo", "jacketThree"]],
   ];
 
-  const [chainAffiliation, setChainAffiliation] = useState("cloth");
-  const [groupAffilation, setGroupAffilation] = useState("cloth");
-  const [proficiencyLevel, setProficiencyLevel] = useState("cloth");
+  const [chainAffiliation, setChainAffiliation] = useState("chainOne");
+  const [groupAffilation, setGroupAffilation] = useState("hatOne");
+  const [proficiencyLevel, setProficiencyLevel] = useState("jacketOne");
 
-  const [hand, setHand] = useState("hand");
-  const [personaOne, setPersonaOne] = useState("background");
-  const [personaTwo, setPersonaTwo] = useState("skin");
-  const [personaThree, setPersonaThree] = useState("eyes");
+  const [handLeft, setHandLeft] = useState("handLeftJs");
+  const [handRight, setHandRight] = useState("handRightJs");
+  const [basicsOne, setBasicsOne] = useState("bgOne");
+  const [basicsTwo, setBasicsTwo] = useState("skinOne");
+  const [basicsThree, setBasicsThree] = useState("eyesOne");
 
   const selectSkill = (a) => {
-    if (a[1].toLocaleLowerCase() === "hand") {
-      a[2] === hand ? setHand("0") : setHand(a[2]);
+    if (a[1].toLocaleLowerCase() === "handleft") {
+      a[2] === handLeft ? setHandLeft(null) : setHandLeft(a[2]);
+    }
+    if (a[1].toLocaleLowerCase() === "handright") {
+      a[2] === handRight ? setHandRight(null) : setHandRight(a[2]);
     }
     if (a[1].toLocaleLowerCase() === "background") {
-      console.log("trigger");
-      a[2] === personaOne ? setPersonaOne("0") : setPersonaOne(a[2]);
-    }
-    if (a[1].toLocaleLowerCase() === "eyes") {
-      a[2] === personaTwo ? setPersonaTwo("0") : setPersonaTwo(a[2]);
+      a[2] === basicsOne ? setBasicsOne(null) : setBasicsOne(a[2]);
     }
     if (a[1].toLocaleLowerCase() === "skin") {
-      a[2] === personaThree ? setPersonaThree("0") : setPersonaThree(a[2]);
+      a[2] === basicsTwo ? setBasicsTwo(null) : setBasicsTwo(a[2]);
     }
-    if (a[1].toLocaleLowerCase() === "cloth") {
+    if (a[1].toLocaleLowerCase() === "eyes") {
+      a[2] === basicsThree ? setBasicsThree(null) : setBasicsThree(a[2]);
+    }
+    if (a[1].toLocaleLowerCase() === "chainOne") {
       a[2] === chainAffiliation
-        ? setChainAffiliation("0")
+        ? setChainAffiliation(null)
         : setChainAffiliation(a[2]);
     }
-    if (a[1].toLocaleLowerCase() === "cloth") {
+    if (a[1].toLocaleLowerCase() === "hatOne") {
       a[2] === groupAffilation
-        ? setGroupAffilation("0")
+        ? setGroupAffilation(null)
         : setGroupAffilation(a[2]);
     }
-    if (a[1].toLocaleLowerCase() === "cloth") {
+    if (a[1].toLocaleLowerCase() === "jacketOne") {
       a[2] === proficiencyLevel
-        ? setProficiencyLevel("0")
+        ? setProficiencyLevel(null)
         : setProficiencyLevel(a[2]);
     }
   };
@@ -62,38 +75,43 @@ function MySkillsSelector() {
               <div key={i}>
                 <ul className="flex flex-row items-center space-x-3 pt-10 pb-2">
                   {a.map((ac, i) => {
-                    return i < 1 ? (
-                      <div key={i} className="font-semibold">
-                        {ac}
+                    return i < 2 ? (
+                      <div>
+                        <div key={i} className="text font-semibold">
+                          {ac}
+                        </div>
                       </div>
-                    ) : (
-                      <div key={i} className="text-xs">
-                        {ac}
-                      </div>
-                    );
+                    ) : null;
                   })}
                 </ul>
-                <button
-                  onClick={() => selectSkill(a)}
-                  className={`border border-2 ${
-                    (personaOne === a[2] && a[1] === "BACKGROUND") ||
-                    (hand === a[2] && a[1] === "HAND") ||
-                    (personaTwo === a[2] && a[1] === "EYES") ||
-                    (personaThree === a[2] && a[1] === "SKIN") ||
-                    (chainAffiliation === a[2] && a[1] === "CLOTH") ||
-                    (groupAffilation === a[2] && a[1] === "CLOTH") ||
-                    (proficiencyLevel === a[2] && a[1] === "CLOTH")
-                      ? "border-red-500"
-                      : null
-                  } px-1 w-fit`}
-                >
-                  <Image
-                    src={`/navi-attributes/basics/${a[1].toLowerCase()}.png`}
-                    height={40}
-                    width={40}
-                    alt={"metamask logo"}
-                  />
-                </button>
+
+                {a[2].map((traits) => {
+                  return (
+                    <button
+                      onClick={() => selectSkill(a)}
+                      className={`border border-2 ${
+                        (basicsOne === a[2] && a[1] === "BACKGROUND") ||
+                        (handLeft === a[2] && a[1] === "HANDLEFT") ||
+                        (handRight === a[2] && a[1] === "HANDRIGHT") ||
+                        (basicsTwo === a[2] && a[1] === "SKIN") ||
+                        (basicsThree === a[2] && a[1] === "EYES") ||
+                        (chainAffiliation === a[2] && a[1] === "CLOTH") ||
+                        (groupAffilation === a[2] && a[1] === "CLOTH") ||
+                        (proficiencyLevel === a[2] && a[1] === "CLOTH")
+                          ? "border-red-500"
+                          : null
+                      } px-1 w-fit`}
+                    >
+                      {console.log("urls", traits)}
+                      <Image
+                        src={`/navi-attributes/basics/${traits}.png`}
+                        height={40}
+                        width={40}
+                        alt={"metamask logo"}
+                      />
+                    </button>
+                  );
+                })}
               </div>
             );
           })}
