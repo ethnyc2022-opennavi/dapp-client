@@ -4,12 +4,29 @@ import Link from "next/link";
 import Nav from "../components/Layout/Nav";
 import Image from 'next/image';
 import FileUpload from "../components/FileUpload";
+import MintButton from "../components/MintButton";
+import React, { useState } from 'react'
+import { stringify } from "querystring";
 
 const DAI_TOKEN_ADDRESS = "0x6b175474e89094c44da98b954eedeac495271d0f";
+
+
+type Ipfs = {
+  ipnft: string,
+  url: string
+}
 
 function Home() {
   const { account, library } = useWeb3React();
   const isConnected = typeof account === "string" && !!library;
+  const [ipfsResult, setIpfsResult] = useState<Ipfs>({ipnft: '', url: ''})
+  const [isLoading, setIsLoading] = useState(false)
+
+  
+  function ipfsUploadResult(ipfsData:Ipfs){
+    setIpfsResult(ipfsData)
+  }
+  
 
   return (
     <div>
@@ -36,9 +53,15 @@ function Home() {
         </h1>
 
         {isConnected && (
-          <section>
-            <FileUpload></FileUpload>
-          </section>
+          <div>
+            <p>account: {account}</p>
+            <section>
+              <FileUpload setIpfsResultCallback={ipfsUploadResult}></FileUpload>
+            </section>
+            <section>
+              <MintButton account={account} ipfsUri={ipfsResult.url}></MintButton>
+            </section>
+          </div>
         )}
 
 

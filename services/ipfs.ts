@@ -11,7 +11,6 @@ import mime from 'mime'
 //import path from 'path'
 import { arrayBufferToBlob } from 'blob-util'
 import { arrayBuffer } from 'stream/consumers'
-import { toUtf8String } from 'ethers/lib/utils'
 
 // Paste your NFT.Storage API key into the quotes:
 const NFT_STORAGE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEE2MjA3NzEzMzMyMGRmMDFhOTZEYmE3RTQ0NkYzNkQ1ODY4MGE1NzYiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY1NjE3NjcwOTI3NiwibmFtZSI6Im5hdmkifQ.7A3lNisCwnPHJhayIixzb4x6MReiKAeL2prIKW1zxIM'
