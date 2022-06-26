@@ -10,6 +10,8 @@ import mime from 'mime'
 // The 'path' module provides helpers for manipulating filesystem paths
 //import path from 'path'
 import { arrayBufferToBlob } from 'blob-util'
+import { arrayBuffer } from 'stream/consumers'
+import { toUtf8String } from 'ethers/lib/utils'
 
 // Paste your NFT.Storage API key into the quotes:
 const NFT_STORAGE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEE2MjA3NzEzMzMyMGRmMDFhOTZEYmE3RTQ0NkYzNkQ1ODY4MGE1NzYiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY1NjE3NjcwOTI3NiwibmFtZSI6Im5hdmkifQ.7A3lNisCwnPHJhayIixzb4x6MReiKAeL2prIKW1zxIM'
@@ -23,13 +25,17 @@ class IpfsService {
      */
     public async storeNFT(file, name: string, description: string) {
         // load the file from disk
-        const image = await this.fileToBlob(file)
+        const imageBlob = await this.fileToBlob(file)
+        const type = imageBlob.type
+        const imageFile = new File([imageBlob], name, {type})
+
         // create a new NFTStorage client using our API key
         const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY })
+        //console.log(`blob`, imageBlob)
         
         // call client.store, passing in the image & metadata
         const token = await nftstorage.store({
-            image,
+            image: imageFile,
             name,
             description,
         })
@@ -39,28 +45,21 @@ class IpfsService {
         return token
     }
     
-    private async fileToBlob(file): Promise<Blob> {
+    private async fileToBlob(file): Promise<any> {
         
         return new Promise((resolve, reject) => {
             try {
                 let reader = new FileReader();
-                let fileByteArray;
+                let fileBlob;
+                let arrayBuffer
                 
-                //reader.readAsDataURL(file)
-                //reader.readAsArrayBuffer(file);
                 reader.onloadend = (evt) => {
                     if (evt.target.readyState == FileReader.DONE) {
-                        let arrayBuffer = evt.target.result
-                        //const type = mime.getType(filePath)
-                        //const type = mime.getType(file)
-                        const type = 'image/*'
-                        fileByteArray = arrayBufferToBlob(arrayBuffer, type)
-
-                        //fileByteArray = new ArrayBuffer(arrayBuffer.byteLength);
-                        //new Uint8Array(fileByteArray).set(new Uint8Array(arrayBuffer));
-
+                        arrayBuffer = evt.target.result
+                        const type = 'image/png'
+                        fileBlob = arrayBufferToBlob(arrayBuffer, type)
                     }
-                    resolve(fileByteArray);
+                    resolve(fileBlob);
                 }
                 reader.readAsArrayBuffer(file);
             }

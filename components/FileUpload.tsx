@@ -12,7 +12,7 @@ const FileUpload: FC = () => {
     }
 
     const handleFileUpload = async () => {
-        const result = await ipfsService.storeNFT(fileUpload, 'test-upload-file', 'some description')
+        const result = await ipfsService.storeNFT(fileUpload, 'test-upload-file.png', 'some description')
         console.log(`${JSON.stringify(result)}`)
     }
 
