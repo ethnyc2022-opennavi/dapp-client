@@ -9,13 +9,59 @@ import mime from 'mime'
 
 // The 'path' module provides helpers for manipulating filesystem paths
 //import path from 'path'
-import { arrayBufferToBlob } from 'blob-util'
+import { arrayBufferToBlob, base64StringToBlob } from 'blob-util'
+//import { b64toBlob } from 'b64-to-blob'
 import { arrayBuffer } from 'stream/consumers'
 
 // Paste your NFT.Storage API key into the quotes:
 const NFT_STORAGE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEE2MjA3NzEzMzMyMGRmMDFhOTZEYmE3RTQ0NkYzNkQ1ODY4MGE1NzYiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY1NjE3NjcwOTI3NiwibmFtZSI6Im5hdmkifQ.7A3lNisCwnPHJhayIixzb4x6MReiKAeL2prIKW1zxIM'
 
 class IpfsService {
+
+    private b64toBlob(b64Data, contentType='', sliceSize=512) {
+        //const byteCharacters = atob(b64Data);
+        const byteCharacters = b64Data.toString('base64')
+        const byteArrays = [];
+      
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+          const slice = byteCharacters.slice(offset, offset + sliceSize);
+      
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+      
+          const byteArray = new Uint8Array(byteNumbers);
+          byteArrays.push(byteArray);
+        }
+      
+        const blob = new Blob(byteArrays, {type: contentType});
+        return blob;
+      }
+
+    public async storeb64ToNFT(b64Image, name: string, description: string){
+        // load the file from disk
+        const imageBlob = this.b64toBlob(b64Image)
+        //const imageBlob = new Blob(b64Image, {type: 'image/png'})
+        const type = imageBlob.type
+        const imageFile = new File([imageBlob], name, {type})
+
+        // create a new NFTStorage client using our API key
+        const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY })
+        //console.log(`blob`, imageBlob)
+        
+        // call client.store, passing in the image & metadata
+        const token = await nftstorage.store({
+            image: imageFile,
+            name,
+            description,
+        })
+
+        console.log(`nft store token: ${token}`)
+
+        return token
+
+    }
     /**
      * Reads an image file from `imagePath` and stores an NFT with the given name and description.
      * @param {string} imagePath the path to an image file
@@ -43,6 +89,15 @@ class IpfsService {
 
         return token
     }
+
+    /*
+    private b64ToBlob(preview){
+        const blob = base64StringToBlob(preview.toString(), 'image/png')
+        console.log(`blob`, blob)
+
+        return blob
+    }
+    */
     
     private async fileToBlob(file): Promise<any> {
         
@@ -65,8 +120,7 @@ class IpfsService {
             catch (e) {
                 reject(e);
             } 
-        })
-        
+        })   
     }
     
 }

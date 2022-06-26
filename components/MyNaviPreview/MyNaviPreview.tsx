@@ -1,6 +1,8 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import mergeImages from "merge-images";
+import { ipfsService } from "../../services/ipfs";
+import { tatumService } from "../../services/tatum";
 
 function MyNaviPreview({
   chain,
@@ -11,8 +13,10 @@ function MyNaviPreview({
   basicsOne,
   basicsTwo,
   basicsThree,
-  basicsFour,
+  account,
+  basicsFour
 }) {
+  let imageb64
   let preview = mergeImages([
     `/navi-attributes/basics/${basicsOne}.png`,
     `/navi-attributes/basics/${basicsTwo}.png`,
@@ -29,11 +33,18 @@ function MyNaviPreview({
     if (!document.querySelector("#foo > img")) {
       document.querySelector("#foo").appendChild(element);
     }
+    imageb64 = b64
   });
+  
 
-  const handleMint = () => {
+  const handleMint = async () => {
     // mint PFP
-    console.log("preview: ", preview);
+    console.log("b64: ", imageb64);
+    const nftResult = await ipfsService.storeb64ToNFT(preview, 'composoable-nft.png', 'some awesome swag')
+    console.log("nft result: ", nftResult)
+
+    const pfpOutput = tatumService.mintNft(account, nftResult.url)
+    console.log(`pfpOutput `, pfpOutput)
   };
 
   {
