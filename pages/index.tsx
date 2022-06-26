@@ -2,17 +2,12 @@ import { useWeb3React } from "@web3-react/core";
 import Head from "next/head";
 import Link from "next/link";
 import Nav from "../components/Layout/Nav";
-<<<<<<< HEAD
-import Image from "next/image";
 import MySkillsSelector from "../components/MySkillsSelector/MySkillsSelector";
 import MyNaviPreview from "../components/MyNaviPreview/MyNaviPreview";
-import React, { useState } from "react";
-=======
 import Image from 'next/image';
 import FileUpload from "../components/FileUpload";
 import MintButton from "../components/MintButton";
 import React, { useState } from 'react'
->>>>>>> 92ca7cf8147437065f8964ea32d99abc17a1256a
 
 const DAI_TOKEN_ADDRESS = "0x6b175474e89094c44da98b954eedeac495271d0f";
 
@@ -78,15 +73,8 @@ function Home() {
 
       <header>
         <nav className="flex items-center pt-5 px-7">
-<<<<<<< HEAD
           <Image src={"/navi.png"} width="100%" height="50%" alt={"Navi"} />
           <Nav />
-=======
-          <Link href="/" passHref>
-            <Image src={'/navi.png'} width="100%" height="50%" alt={'Navi'}/>
-          </Link>
-          <Nav/>
->>>>>>> 92ca7cf8147437065f8964ea32d99abc17a1256a
         </nav>
       </header>
 
@@ -99,7 +87,6 @@ function Home() {
         </h1>
 
         {isConnected && (
-<<<<<<< HEAD
           <section>
             <div className="flex justify-between px-40 pt-10">
               <div>
@@ -132,20 +119,6 @@ function Home() {
             </div>
           </section>
         )}
-=======
-          <div>
-            <p>account: {account}</p>
-            <section>
-              <FileUpload setIpfsResultCallback={ipfsUploadResult}></FileUpload>
-            </section>
-            <section>
-              <MintButton account={account} ipfsUri={ipfsResult.url}></MintButton>
-            </section>
-          </div>
-        )}
-
-
->>>>>>> 92ca7cf8147437065f8964ea32d99abc17a1256a
       </main>
 
       <style jsx>{`
