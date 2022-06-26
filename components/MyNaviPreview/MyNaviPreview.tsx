@@ -15,8 +15,8 @@ function MyNaviPreview({
   let preview = mergeImages([
     `/navi-attributes/basics/${basicsOne}.png`,
     `/navi-attributes/basics/${basicsTwo}.png`,
-    `/navi-attributes/basics/${chain}.png`,
     `/navi-attributes/basics/${proficiency}.png`,
+    `/navi-attributes/basics/${chain}.png`,
     `/navi-attributes/basics/${handRight}.png`,
     `/navi-attributes/basics/${handLeft}.png`,
     `/navi-attributes/basics/${basicsThree}.png`,
@@ -29,21 +29,38 @@ function MyNaviPreview({
     }
   });
 
+  const handleMint = () => {
+    // mint PFP
+    console.log("preview: ", preview);
+  };
+
   {
-    /*   <div className="font-mont pt-10">
-        <div>{basicsOne}</div>
-        <div>{basicsTwo}</div>
-        <div>{chain}</div>
-        <div>{proficiency}</div>
-        <div>{handRight}</div>
-        <div>{handLeft}</div>
-        <div>{basicsThree}</div>
-        <div>mouth</div>
-        <div>{group}</div>
-      </div> */
+    /* <div className="font-mont pt-10">
+    <div>{basicsOne}</div>
+    <div>{basicsTwo}</div>
+    <div>{chain}</div>
+    <div>{proficiency}</div>
+    <div>{handRight}</div>
+    <div>{handLeft}</div>
+    <div>{basicsThree}</div>
+    <div>mouth</div>
+    <div>{group}</div>
+  </div>; */
   }
 
-  return <div className="" id="foo"></div>;
+  return (
+    <div className="pt-20 pl-10">
+      <div className="p-12" id="foo"></div>
+      <div className="-pt-10">
+        <button
+          onClick={() => handleMint()}
+          className="border p-2 border-gray-400 rounded-lg hover:bg-gray-100"
+        >
+          Mint PFP
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default MyNaviPreview;

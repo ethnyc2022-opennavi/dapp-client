@@ -49,6 +49,9 @@ function MySkillsSelector({
       } else {
         onHandLeft(traits);
         setHandLeft(traits);
+        if (document.querySelector("#foo > img")) {
+          document.querySelector("#foo > img").remove();
+        }
       }
     }
     if (NaviAttributes[4][2].includes(traits)) {
@@ -57,6 +60,9 @@ function MySkillsSelector({
       } else {
         onHandRight(traits);
         setHandRight(traits);
+        if (document.querySelector("#foo > img")) {
+          document.querySelector("#foo > img").remove();
+        }
       }
     }
     if (NaviAttributes[0][2].includes(traits)) {
@@ -65,6 +71,9 @@ function MySkillsSelector({
       } else {
         onBasicsOne(traits);
         setBasicsOne(traits);
+        if (document.querySelector("#foo > img")) {
+          document.querySelector("#foo > img").remove();
+        }
       }
     }
     if (NaviAttributes[2][2].includes(traits)) {
@@ -73,6 +82,9 @@ function MySkillsSelector({
       } else {
         onBasicsThree(traits);
         setBasicsThree(traits);
+        if (document.querySelector("#foo > img")) {
+          document.querySelector("#foo > img").remove();
+        }
       }
     }
     if (NaviAttributes[1][2].includes(traits)) {
@@ -82,6 +94,9 @@ function MySkillsSelector({
       } else {
         onBasicsTwo(traits);
         setBasicsTwo(traits);
+        if (document.querySelector("#foo > img")) {
+          document.querySelector("#foo > img").remove();
+        }
       }
     }
     if (NaviAttributes[5][2].includes(traits)) {
@@ -90,6 +105,9 @@ function MySkillsSelector({
       } else {
         onChainAffiliation(traits);
         setChainAffiliation(traits);
+        if (document.querySelector("#foo > img")) {
+          document.querySelector("#foo > img").remove();
+        }
       }
     }
     if (NaviAttributes[6][2].includes(traits)) {
@@ -98,6 +116,9 @@ function MySkillsSelector({
       } else {
         onGroupAffiliation(traits);
         setGroupAffilation(traits);
+        if (document.querySelector("#foo > img")) {
+          document.querySelector("#foo > img").remove();
+        }
       }
     }
     if (NaviAttributes[7][2].includes(traits)) {
@@ -106,6 +127,9 @@ function MySkillsSelector({
       } else {
         onProficiencyLevel(traits);
         setProficiencyLevel(traits);
+        if (document.querySelector("#foo > img")) {
+          document.querySelector("#foo > img").remove();
+        }
       }
     }
   };
