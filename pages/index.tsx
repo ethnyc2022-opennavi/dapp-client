@@ -4,30 +4,27 @@ import Link from "next/link";
 import Nav from "../components/Layout/Nav";
 import MySkillsSelector from "../components/MySkillsSelector/MySkillsSelector";
 import MyNaviPreview from "../components/MyNaviPreview/MyNaviPreview";
-import Image from 'next/image';
+import Image from "next/image";
 import FileUpload from "../components/FileUpload";
 import MintButton from "../components/MintButton";
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 const DAI_TOKEN_ADDRESS = "0x6b175474e89094c44da98b954eedeac495271d0f";
 
-
 type Ipfs = {
-  ipnft: string,
-  url: string
-}
+  ipnft: string;
+  url: string;
+};
 
 function Home() {
   const { account, library } = useWeb3React();
   const isConnected = typeof account === "string" && !!library;
-  const [ipfsResult, setIpfsResult] = useState<Ipfs>({ipnft: '', url: ''})
-  const [isLoading, setIsLoading] = useState(false)
+  const [ipfsResult, setIpfsResult] = useState<Ipfs>({ ipnft: "", url: "" });
+  const [isLoading, setIsLoading] = useState(false);
 
-  
-  function ipfsUploadResult(ipfsData:Ipfs){
-    setIpfsResult(ipfsData)
+  function ipfsUploadResult(ipfsData: Ipfs) {
+    setIpfsResult(ipfsData);
   }
-  
 
   const [chainAffiliation, setChainAffiliation] = useState("chainOne");
   const [groupAffiliation, setGroupAffiliation] = useState("hatOne");
@@ -38,6 +35,7 @@ function Home() {
   const [basicsOne, setBasicsOne] = useState("bgOne");
   const [basicsTwo, setBasicsTwo] = useState("skinOne");
   const [basicsThree, setBasicsThree] = useState("eyesOne");
+  const [basicsFour, setBasicsFour] = useState("faceOne");
 
   const onChainAffiliationSet = (item) => {
     setChainAffiliation(item);
@@ -62,6 +60,9 @@ function Home() {
   };
   const onBasicsThreeSet = (item) => {
     setBasicsThree(item);
+  };
+  const onBasicsFourSet = (item) => {
+    setBasicsFour(item);
   };
 
   return (
@@ -100,6 +101,7 @@ function Home() {
                   onBasicsOne={onBasicsOneSet}
                   onBasicsTwo={onBasicsTwoSet}
                   onBasicsThree={onBasicsThreeSet}
+                  onBasicsFour={onBasicsFourSet}
                 />
               </div>
               <div className="border-r"></div>
@@ -115,6 +117,7 @@ function Home() {
                   basicsTwo={basicsTwo}
                   basicsThree={basicsThree}
                   account={account}
+                  basicsFour={basicsFour}
                 />
               </div>
             </div>

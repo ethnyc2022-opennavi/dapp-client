@@ -12,6 +12,7 @@ function MySkillsSelector({
   onBasicsOne,
   onBasicsTwo,
   onBasicsThree,
+  onBasicsFour,
 }) {
   const NaviAttributes = [
     ["Basics 1", "BACKGROUND", ["bgOne", "bgTwo", "bgThree"]],
@@ -30,6 +31,7 @@ function MySkillsSelector({
     ["Chain Affiliation", "CHAIN", ["chainOne", "chainTwo", "chainThree"]],
     ["Group Affiliation", "HAT", ["hatOne"]],
     ["Proficiency Level", "JACKET", ["jacketOne", "jacketTwo", "jacketThree"]],
+    ["Basics 4", "FACE", ["faceOne", "faceTwo", "faceThree"]],
   ];
 
   const [chainAffiliation, setChainAffiliation] = useState("chainOne");
@@ -41,6 +43,7 @@ function MySkillsSelector({
   const [basicsOne, setBasicsOne] = useState("bgOne");
   const [basicsTwo, setBasicsTwo] = useState("skinOne");
   const [basicsThree, setBasicsThree] = useState("eyesOne");
+  const [basicsFour, setBasicsFour] = useState("faceOne");
 
   const selectSkill = (traits) => {
     if (NaviAttributes[3][2].includes(traits)) {
@@ -99,6 +102,17 @@ function MySkillsSelector({
         }
       }
     }
+    if (NaviAttributes[8][2].includes(traits)) {
+      if (traits === proficiencyLevel) {
+        setBasicsFour(null);
+      } else {
+        onBasicsFour(traits);
+        setBasicsFour(traits);
+        if (document.querySelector("#foo > img")) {
+          document.querySelector("#foo > img").remove();
+        }
+      }
+    }
     if (NaviAttributes[5][2].includes(traits)) {
       if (traits === chainAffiliation) {
         setChainAffiliation(null);
@@ -135,7 +149,7 @@ function MySkillsSelector({
   };
 
   return (
-    <div className="font-mont text-black">
+    <div className="font-mont text-black pr-12">
       <main className="pt-8">
         <ul className="text-left">
           {NaviAttributes.map((a, i) => {
@@ -166,7 +180,8 @@ function MySkillsSelector({
                         (basicsThree === traits && a[1] === "EYES") ||
                         (chainAffiliation === traits && a[1] === "CHAIN") ||
                         (groupAffiliation === traits && a[1] === "HAT") ||
-                        (proficiencyLevel === traits && a[1] === "JACKET")
+                        (proficiencyLevel === traits && a[1] === "JACKET") ||
+                        (basicsFour === traits && a[1] === "FACE")
                           ? "border-red-500"
                           : null
                       } px-1 w-fit`}
