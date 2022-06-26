@@ -3,7 +3,16 @@ import { access } from "fs";
 import Image from "next/image";
 import React, { useState } from "react";
 
-function MySkillsSelector() {
+function MySkillsSelector({
+  onChainAffiliation,
+  onGroupAffiliation,
+  onProficiencyLevel,
+  onHandLeft,
+  onHandRight,
+  onBasicsOne,
+  onBasicsTwo,
+  onBasicsThree,
+}) {
   const NaviAttributes = [
     ["Basics 1", "BACKGROUND", ["bgOne", "bgTwo", "bgThree"]],
     ["Basics 2", "SKIN", ["skinOne", "skinTwo", "skinThree"]],
@@ -24,7 +33,7 @@ function MySkillsSelector() {
   ];
 
   const [chainAffiliation, setChainAffiliation] = useState("chainOne");
-  const [groupAffilation, setGroupAffilation] = useState("hatOne");
+  const [groupAffiliation, setGroupAffilation] = useState("hatOne");
   const [proficiencyLevel, setProficiencyLevel] = useState("jacketOne");
 
   const [handLeft, setHandLeft] = useState("handLeftJs");
@@ -33,36 +42,71 @@ function MySkillsSelector() {
   const [basicsTwo, setBasicsTwo] = useState("skinOne");
   const [basicsThree, setBasicsThree] = useState("eyesOne");
 
-  const selectSkill = (a) => {
-    if (a[1].toLocaleLowerCase() === "handleft") {
-      a[2] === handLeft ? setHandLeft(null) : setHandLeft(a[2]);
+  const selectSkill = (traits) => {
+    if (NaviAttributes[3][2].includes(traits)) {
+      if (traits === handLeft) {
+        setHandLeft(null);
+      } else {
+        onHandLeft(traits);
+        setHandLeft(traits);
+      }
     }
-    if (a[1].toLocaleLowerCase() === "handright") {
-      a[2] === handRight ? setHandRight(null) : setHandRight(a[2]);
+    if (NaviAttributes[4][2].includes(traits)) {
+      if (traits === handRight) {
+        setHandRight(null);
+      } else {
+        onHandRight(traits);
+        setHandRight(traits);
+      }
     }
-    if (a[1].toLocaleLowerCase() === "background") {
-      a[2] === basicsOne ? setBasicsOne(null) : setBasicsOne(a[2]);
+    if (NaviAttributes[0][2].includes(traits)) {
+      if (traits === basicsTwo) {
+        setBasicsOne(null);
+      } else {
+        onBasicsOne(traits);
+        setBasicsOne(traits);
+      }
     }
-    if (a[1].toLocaleLowerCase() === "skin") {
-      a[2] === basicsTwo ? setBasicsTwo(null) : setBasicsTwo(a[2]);
+    if (NaviAttributes[2][2].includes(traits)) {
+      if (traits === basicsThree) {
+        setBasicsThree(null);
+      } else {
+        onBasicsThree(traits);
+        setBasicsThree(traits);
+      }
     }
-    if (a[1].toLocaleLowerCase() === "eyes") {
-      a[2] === basicsThree ? setBasicsThree(null) : setBasicsThree(a[2]);
+    if (NaviAttributes[1][2].includes(traits)) {
+      console.log("triggered");
+      if (traits === basicsTwo) {
+        setBasicsTwo(null);
+      } else {
+        onBasicsTwo(traits);
+        setBasicsTwo(traits);
+      }
     }
-    if (a[1].toLocaleLowerCase() === "chainOne") {
-      a[2] === chainAffiliation
-        ? setChainAffiliation(null)
-        : setChainAffiliation(a[2]);
+    if (NaviAttributes[5][2].includes(traits)) {
+      if (traits === chainAffiliation) {
+        setChainAffiliation(null);
+      } else {
+        onChainAffiliation(traits);
+        setChainAffiliation(traits);
+      }
     }
-    if (a[1].toLocaleLowerCase() === "hatOne") {
-      a[2] === groupAffilation
-        ? setGroupAffilation(null)
-        : setGroupAffilation(a[2]);
+    if (NaviAttributes[6][2].includes(traits)) {
+      if (traits === groupAffiliation) {
+        setGroupAffilation(null);
+      } else {
+        onGroupAffiliation(traits);
+        setGroupAffilation(traits);
+      }
     }
-    if (a[1].toLocaleLowerCase() === "jacketOne") {
-      a[2] === proficiencyLevel
-        ? setProficiencyLevel(null)
-        : setProficiencyLevel(a[2]);
+    if (NaviAttributes[7][2].includes(traits)) {
+      if (traits === proficiencyLevel) {
+        setProficiencyLevel(null);
+      } else {
+        onProficiencyLevel(traits);
+        setProficiencyLevel(traits);
+      }
     }
   };
 
@@ -85,24 +129,24 @@ function MySkillsSelector() {
                   })}
                 </ul>
 
-                {a[2].map((traits) => {
+                {a[2].map((traits, i) => {
                   return (
                     <button
-                      onClick={() => selectSkill(a)}
+                      key={i}
+                      onClick={() => selectSkill(traits)}
                       className={`border border-2 ${
-                        (basicsOne === a[2] && a[1] === "BACKGROUND") ||
-                        (handLeft === a[2] && a[1] === "HANDLEFT") ||
-                        (handRight === a[2] && a[1] === "HANDRIGHT") ||
-                        (basicsTwo === a[2] && a[1] === "SKIN") ||
-                        (basicsThree === a[2] && a[1] === "EYES") ||
-                        (chainAffiliation === a[2] && a[1] === "CLOTH") ||
-                        (groupAffilation === a[2] && a[1] === "CLOTH") ||
-                        (proficiencyLevel === a[2] && a[1] === "CLOTH")
+                        (basicsOne == traits && a[1] === "BACKGROUND") ||
+                        (handLeft === traits && a[1] === "HANDLEFT") ||
+                        (handRight === traits && a[1] === "HANDRIGHT") ||
+                        (basicsTwo === traits && a[1] === "SKIN") ||
+                        (basicsThree === traits && a[1] === "EYES") ||
+                        (chainAffiliation === traits && a[1] === "CHAIN") ||
+                        (groupAffiliation === traits && a[1] === "HAT") ||
+                        (proficiencyLevel === traits && a[1] === "JACKET")
                           ? "border-red-500"
                           : null
                       } px-1 w-fit`}
                     >
-                      {console.log("urls", traits)}
                       <Image
                         src={`/navi-attributes/basics/${traits}.png`}
                         height={40}
