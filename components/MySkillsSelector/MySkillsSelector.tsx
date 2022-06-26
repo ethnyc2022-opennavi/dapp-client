@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { compose } from "@mui/system";
 import { access } from "fs";
 import Image from "next/image";

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useWeb3React } from "@web3-react/core";
 import Head from "next/head";
 import Link from "next/link";
@@ -83,7 +85,7 @@ function Home() {
         <h1 className="font-bold text-gray-600">
           Generate your{" "}
           <a href="https://github.com/mirshko/next-web3-boilerplate">
-            Na'viSkills PFP
+            Navi Skills PFP
           </a>
         </h1>
 
