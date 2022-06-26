@@ -6,7 +6,6 @@ import Image from 'next/image';
 import FileUpload from "../components/FileUpload";
 import MintButton from "../components/MintButton";
 import React, { useState } from 'react'
-import { stringify } from "querystring";
 
 const DAI_TOKEN_ADDRESS = "0x6b175474e89094c44da98b954eedeac495271d0f";
 
@@ -37,7 +36,7 @@ function Home() {
 
       <header>
         <nav className="flex items-center pt-5 px-7">
-          <Link href="/">
+          <Link href="/" passHref>
             <Image src={'/navi.png'} width="100%" height="50%" alt={'Navi'}/>
           </Link>
           <Nav/>
