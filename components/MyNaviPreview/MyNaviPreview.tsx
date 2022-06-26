@@ -40,7 +40,9 @@ function MyNaviPreview({
   const handleMint = async () => {
     // mint PFP
     console.log("b64: ", imageb64);
-    const nftResult = await ipfsService.storeb64ToNFT(preview, 'composoable-nft.png', 'some awesome swag')
+
+    //const blob = await fetch()
+    const nftResult = await ipfsService.storeb64ToNFT(imageb64, 'composoable-nft.png', 'some awesome swag')
     console.log("nft result: ", nftResult)
 
     const pfpOutput = tatumService.mintNft(account, nftResult.url)
