@@ -51,7 +51,7 @@ const AccountModal = ({ chainId, account, deactivate, setIsConnecting, domRef, i
 
 					<span>Disconnect</span>
 				</button>
-				<Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/user/${account}`}>	
+				<Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/user/${account}`} passHref>	
 					<button onClick={disconnectAccount}>
 					<a className='rounded-lg flex border-web-gray w-min text-sm font-semibold hover:text-tinted self-start gap-1'>
 						<svg xmlns="http://www.w3.org/2000/svg" height="22" width="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">

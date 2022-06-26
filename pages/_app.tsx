@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Web3ReactProvider } from "@web3-react/core";
 import type { AppProps } from "next/app";
 import getLibrary from "../getLibrary";

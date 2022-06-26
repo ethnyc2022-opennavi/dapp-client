@@ -3,16 +3,31 @@ import React, { FC, useState } from 'react'
 import { ipfsService } from '../services/ipfs'
 
 
-const FileUpload: FC = () => {
+type Props = {
+    setIpfsResultCallback: any
+}
+
+const FileUpload: FC<Props> = (props) => {
 
     const [fileUpload, setFileUpload]= useState()
+    const [isUploading, setIsUploading] = useState(false)
+
+    const {setIpfsResultCallback} = props
 
     const handleChange = (e) => {
         setFileUpload(e.target.files[0])
     }
 
     const handleFileUpload = async () => {
-        const result = await ipfsService.storeNFT(fileUpload, 'test-upload-file', 'some description')
+
+        if (!fileUpload) {
+            return
+        }
+
+        setIsUploading(true)
+        const result = await ipfsService.storeNFT(fileUpload, 'test-upload-file.png', 'some description')
+        setIsUploading(false)
+        setIpfsResultCallback(result)
         console.log(`${JSON.stringify(result)}`)
     }
 
