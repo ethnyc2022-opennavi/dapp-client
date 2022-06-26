@@ -114,6 +114,7 @@ function Home() {
                   basicsOne={basicsOne}
                   basicsTwo={basicsTwo}
                   basicsThree={basicsThree}
+                  account={account}
                 />
               </div>
             </div>
