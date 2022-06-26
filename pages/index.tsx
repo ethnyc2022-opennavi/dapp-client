@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Nav from "../components/Layout/Nav";
 import Image from 'next/image';
+import FileUpload from "../components/FileUpload";
 
 const DAI_TOKEN_ADDRESS = "0x6b175474e89094c44da98b954eedeac495271d0f";
 
@@ -36,13 +37,11 @@ function Home() {
 
         {isConnected && (
           <section>
-
+            <FileUpload></FileUpload>
           </section>
         )}
 
-        {
-          <FileUpload></FileUpload>
-        }
+
       </main>
 
       <style jsx>{`
