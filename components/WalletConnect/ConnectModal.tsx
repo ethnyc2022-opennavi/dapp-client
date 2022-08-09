@@ -27,7 +27,7 @@ const ConnectModal = ({closeModal})=>{
 			<div className='text-black absolute top-0 left-0 right-0 h-screen flex justify-center items-center'>
 				<div className='max-w-md w-5/6 bg-gray-200 z-40  flex flex-col gap-2 p-6 px-12 text-lg rounded-lg '>
 					<h2 className='text-xl font-bold'>Connect Wallet</h2>
-					<p className='text-sm'>Connect your wallet to continue with Open Na'vi. By connecting your wallet you agree with Navi{'\''}s terms of service.</p>
+					<p className='text-sm'>Connect your wallet to continue with Open Navi. By connecting your wallet you agree with Navi&apos;s terms of service.</p>
 					<button onClick={handleMetaMask} className='flex p-2 mt-4  my-2 w-full gap-4 hover:bg-inactive-accent/10 rounded-md hover:border-web-gray border border-transparent justify-left'>
 						<Image src={'/wallet-logos/metamask.png'} height={40} width={40} alt={'metamask logo'}/>
 						<div className='text-xl leading-loose'>
